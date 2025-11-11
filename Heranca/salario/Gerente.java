@@ -8,9 +8,10 @@ public class Gerente extends Empregado {
     public double calcularBonus(Departamento departamento) {
         if (departamento.alcancouMeta()) {
             double bonusBase = getSalarioFixo() * 0.20;
-            double bonusAdicional = (departamento.getValorAtingidoMeta() - departamento.getValorMeta()) * 0.01;
-            return bonusBase + bonusAdicional;
+            double diferenca = departamento.getValorAtingidoMeta() - departamento.getValorMeta();
+            double bonusExtra = diferenca * 0.01;
+            return bonusBase + bonusExtra;
         }
-        return 0;
+        return 0.0;
     }
 }
