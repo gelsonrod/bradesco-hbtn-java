@@ -63,14 +63,6 @@ public class Pessoa implements Comparable<Pessoa> {
 
     @Override
     public int compareTo(Pessoa outra) {
-        int idadeComp = Integer.compare(outra.idade, this.idade);
-        if (idadeComp != 0) {
-            return idadeComp;
-        }
-        int codigoComp = Integer.compare(outra.codigo, this.codigo);
-        if (codigoComp != 0) {
-            return codigoComp;
-        }
-        return Double.compare(outra.salario, this.salario);
+        return Integer.compare(this.codigo, outra.codigo);
     }
 }
