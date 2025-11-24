@@ -1,5 +1,3 @@
-import java.util.Locale;
-
 public class Pessoa implements Comparable<Pessoa> {
     private int codigo;
     private String nome;
@@ -15,67 +13,22 @@ public class Pessoa implements Comparable<Pessoa> {
         this.salario = salario;
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public double getSalario() {
-        return salario;
-    }
-
-    public void setSalario(double salario) {
-        this.salario = salario;
-    }
+    public int getCodigo() { return codigo; }
+    public String getNome() { return nome; }
+    public String getCargo() { return cargo; }
+    public int getIdade() { return idade; }
+    public double getSalario() { return salario; }
 
     @Override
     public String toString() {
-        return String.format(Locale.forLanguageTag("pt-BR"),
-            "[%d] %s %s %d R$ %f", codigo, nome, cargo, idade, salario);
+        String salarioStr = String.format(java.util.Locale.US, "%.6f", salario).replace('.', ',');
+        return String.format("[%d] %s %s %d R$ %s", codigo, nome, cargo, idade, salarioStr);
     }
 
     @Override
-    public int compareTo(Pessoa outra) {
-        // Intercalar: par/ímpar alternando, ordem decrescente dentro de cada grupo
-        int thisGrupo = this.codigo % 2;  // 0 = par, 1 = ímpar
-        int outraGrupo = outra.codigo % 2;
-        
-        // Dentro de pares ou ímpares, ordem decrescente
-        int thisOrdem = this.codigo / 2;
-        int outraOrdem = outra.codigo / 2;
-        
-        if (thisOrdem != outraOrdem) {
-            return Integer.compare(outraOrdem, thisOrdem);
-        }
-        
-        // Se mesma "camada", par vem antes
-        return Integer.compare(thisGrupo, outraGrupo);
+    public int compareTo(Pessoa o) {
+        int byName = this.nome.compareTo(o.nome);
+        if (byName != 0) return byName;
+        return Integer.compare(this.codigo, o.codigo);
     }
 }
