@@ -63,15 +63,19 @@ public class Pessoa implements Comparable<Pessoa> {
 
     @Override
     public int compareTo(Pessoa outra) {
-        // Ordem customizada: ímpares antes de pares, depois por codigo decrescente
-        boolean thisEhImpar = this.codigo % 2 == 1;
-        boolean outraEhImpar = outra.codigo % 2 == 1;
+        // Intercalar: par/ímpar alternando, ordem decrescente dentro de cada grupo
+        int thisGrupo = this.codigo % 2;  // 0 = par, 1 = ímpar
+        int outraGrupo = outra.codigo % 2;
         
-        if (thisEhImpar != outraEhImpar) {
-            return thisEhImpar ? -1 : 1;  // ímpares vêm primeiro
+        // Dentro de pares ou ímpares, ordem decrescente
+        int thisOrdem = this.codigo / 2;
+        int outraOrdem = outra.codigo / 2;
+        
+        if (thisOrdem != outraOrdem) {
+            return Integer.compare(outraOrdem, thisOrdem);
         }
         
-        // Dentro do mesmo grupo (par ou ímpar), ordem decrescente
-        return Integer.compare(outra.codigo, this.codigo);
+        // Se mesma "camada", par vem antes
+        return Integer.compare(thisGrupo, outraGrupo);
     }
 }
