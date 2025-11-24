@@ -67,10 +67,10 @@ public class Pessoa implements Comparable<Pessoa> {
         if (idadeComp != 0) {
             return idadeComp;
         }
-        int salarioComp = Double.compare(this.salario, outra.salario);
+        int salarioComp = Double.compare(outra.salario, this.salario);
         if (salarioComp != 0) {
             return salarioComp;
         }
-        return Integer.compare(this.codigo, outra.codigo);
+        return Integer.compare(outra.codigo, this.codigo);
     }
 }
